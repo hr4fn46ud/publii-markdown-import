@@ -1,6 +1,6 @@
 # Markdown Importer
 
-[![CI](https://github.com/netherwraith/publii-markdown-import/actions/workflows/ci.yml/badge.svg)](https://github.com/netherwraith/publii-markdown-import/actions/workflows/ci.yml)
+[![CI](https://github.com/hr4fn46ud/publii-markdown-import/actions/workflows/ci.yml/badge.svg)](https://github.com/hr4fn46ud/publii-markdown-import/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Import standard Markdown files into **Publii 0.48.1 or later** as editable draft posts. Markdown source is preserved for further editing in Publii's Markdown editor.
@@ -9,7 +9,7 @@ The plugin is called **Markdown Importer**. This repository is named **publii-ma
 
 ## Download
 
-Download **[Markdown-Importer-1.0.0.zip](https://github.com/netherwraith/publii-markdown-import/releases/latest/download/Markdown-Importer-1.0.0.zip)** from the [latest release](https://github.com/netherwraith/publii-markdown-import/releases/latest).
+Download **[Markdown-Importer-1.0.0.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.0.0.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
 
 Use the plugin ZIP for installation. The source archive and GitHub's automatically generated source downloads are not plugin installation packages.
 
@@ -94,7 +94,7 @@ The opening heading supplies the title.
 
 Calendar dates use the YYYY-MM-DD format. For timestamps, include Z or an explicit UTC offset when the time must be unambiguous. A timestamp with a time but no offset uses the system's local timezone. A date-only value is parsed as UTC midnight.
 
-The repository includes [sample files](https://github.com/netherwraith/publii-markdown-import/tree/main/examples).
+The repository includes [sample files](https://github.com/hr4fn46ud/publii-markdown-import/tree/main/examples).
 
 ## Limits and unsupported features
 
@@ -200,7 +200,7 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 - A complete manual installation and interaction test in the running Publii GUI has not been performed.
 - Windows and Linux have not been independently tested.
 
-See [the test report](https://github.com/netherwraith/publii-markdown-import/blob/main/verification/TEST-REPORT.md) for the recorded scope and limits.
+See [the test report](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/TEST-REPORT.md) for the recorded scope and limits.
 
 GitHub Actions runs core tests, builds the packages, and uploads the resulting artifacts on pushes and pull requests.
 
@@ -208,4 +208,4 @@ GitHub Actions runs core tests, builds the packages, and uploads the resulting a
 
 The plugin, documentation, examples, and project code are released under the **[MIT License](LICENSE)**.
 
-The bundled js-yaml parser is also MIT-licensed. Its original copyright and permission notice is preserved in [js-yaml.LICENSE](https://github.com/netherwraith/publii-markdown-import/blob/main/markdown-importer/options/vendor/js-yaml.LICENSE).
+The bundled js-yaml parser is also MIT-licensed. Its original copyright and permission notice is preserved in [js-yaml.LICENSE](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/markdown-importer/options/vendor/js-yaml.LICENSE).
