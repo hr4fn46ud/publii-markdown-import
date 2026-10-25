@@ -11,18 +11,22 @@ The plugin is called **Markdown Importer**. This repository is named **publii-ma
 
 ## Download
 
-Download **[Markdown-Importer-1.0.0.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.0.0.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
+Download **[Markdown-Importer-1.0.1.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.0.1.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
 
 Use the plugin ZIP for installation. The source archive and GitHub's automatically generated source downloads are not plugin installation packages.
 
 ## Screenshots
 
-The following screenshots were supplied by the author from the running Publii application. The original PNG files are preserved with their nominal 144 dpi resolution metadata.
+The current English interface in version 1.0.1 is shown below. This preview is captured by the browser test using a simulated Publii connection.
 
-![Markdown Importer options in Publii](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/01-options.png)
+![English Markdown Importer interface](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/verification/markdown-importer-preview.png)
 
 <details>
-<summary>File selection, installed plugin, and completed import</summary>
+<summary>Original application screenshots: version 1.0.0 (historical German interface)</summary>
+
+These original screenshots were supplied by the author from the running Publii application. They retain their nominal 144 dpi resolution metadata and document the earlier version; they have not been translated or altered.
+
+![Markdown Importer 1.0.0 options in Publii](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/01-options.png)
 
 ![Markdown files ready for import](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/02-file-selection.png)
 
@@ -39,7 +43,7 @@ The [submission materials](https://github.com/hr4fn46ud/publii-markdown-import/t
 ## Installation
 
 1. Open Publii's application menu, then select **Plugins → Install Plugin**.
-2. Select **Markdown-Importer-1.0.0.zip** without extracting it.
+2. Select **Markdown-Importer-1.0.1.zip** without extracting it.
 3. Open the target website.
 4. Find **Markdown Importer** under **Tools & Plugins**, enable it, and open its settings.
 5. Select one or more Markdown files, or drag them into the file selection area.
@@ -49,7 +53,7 @@ The [submission materials](https://github.com/hr4fn46ud/publii-markdown-import/t
 9. Start the draft import and keep the plugin view open until it finishes.
 10. Open the imported posts from Publii's post list, review them, and publish when ready.
 
-**Interface language:** the current plugin interface is German. This documentation describes its controls in English.
+**Interface language:** English, including labels, status messages, warnings, validation errors, metadata, and source comments. Native file-picker controls follow the operating system's language. Imported content is preserved in its original language.
 
 No additional runtime installation is required. Node.js and Python are only needed for development and packaging.
 
@@ -181,8 +185,8 @@ The build creates:
 
 ~~~text
 dist/
-  Markdown-Importer-1.0.0.zip
-  Markdown-Importer-1.0.0-Source.zip
+  Markdown-Importer-1.0.1.zip
+  Markdown-Importer-1.0.1-Source.zip
   SHA256SUMS.txt
 ~~~
 
@@ -218,8 +222,8 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 ### Verification status
 
 - 26 automated core tests passed.
-- Browser interface tests passed.
-- Native backend and plugin package checks passed against Publii 0.48.1.
+- Browser interface tests passed for version 1.0.1, including the English interface and generated preview.
+- Native backend and plugin package checks for version 1.0.1 passed against Publii 0.48.1.
 - Author-supplied screenshots show version 1.0.0 installed and running in Publii, a completed import of 20 drafts with zero skipped files, and the resulting 20 drafts in Publii's post list. This provides application-level evidence for the manual import workflow; the images do not inspect every post's content or subsequent editor save operations.
 - Windows and Linux have not been independently tested.
 

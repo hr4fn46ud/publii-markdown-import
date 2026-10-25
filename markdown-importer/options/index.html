@@ -1,24 +1,24 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Markdown Importer</title><link rel="stylesheet" href="style.css"></head>
 <body><main>
-<header><span class="badge">MD ↓</span><div><h1>Markdown Importer</h1><p>Markdown-Dateien als bearbeitbare Entwürfe in Publii übernehmen.</p></div></header>
-<p id="connection" role="status">Verbindung mit Publii wird geprüft …</p>
-<section class="panel"><h2>1. Dateien auswählen</h2>
-<label class="drop" id="drop">Dateien hier ablegen oder auswählen
-<input id="files" type="file" multiple accept=".md,.markdown,.mdown,text/markdown"><span>.md · .markdown · .mdown — UTF-8, maximal 10 MiB pro Datei</span></label>
-<p class="muted">YAML-Frontmatter ist optional. Titel: Frontmatter → erste Hauptüberschrift → Dateiname.</p>
-<div class="settings"><label>Autor<select id="author" disabled></select></label>
-<label class="check"><input id="strip" type="checkbox">Erste Hauptüberschrift aus dem Text entfernen, wenn sie dem Titel entspricht</label>
-<label class="check"><input id="skip" type="checkbox" checked>Vorhandene URL-Namen überspringen</label></div>
-<p class="note">Alle Beiträge werden als Entwürfe importiert. Lokale Bilder und Anhänge werden nicht kopiert. Externe Bild-URLs bleiben erhalten.</p>
+<header><span class="badge">MD ↓</span><div><h1>Markdown Importer</h1><p>Import Markdown files into Publii as editable draft posts.</p></div></header>
+<p id="connection" role="status">Checking the connection to Publii…</p>
+<section class="panel"><h2>1. Select files</h2>
+<label class="drop" id="drop">Drop files here or select files
+<input id="files" type="file" multiple accept=".md,.markdown,.mdown,text/markdown"><span>.md · .markdown · .mdown — UTF-8, maximum 10 MiB per file</span></label>
+<p class="muted">YAML front matter is optional. Title: front matter → opening main heading → filename.</p>
+<div class="settings"><label>Author<select id="author" disabled></select></label>
+<label class="check"><input id="strip" type="checkbox">Remove the opening main heading from the text when it matches the title</label>
+<label class="check"><input id="skip" type="checkbox" checked>Skip existing URL slugs</label></div>
+<p class="note">All posts are imported as drafts. Local images and attachments are not copied. External image URLs are preserved.</p>
 </section>
-<section class="panel"><div class="row"><h2>2. Import prüfen</h2><span id="count">Keine Dateien ausgewählt</span></div>
-<div class="table-wrap"><table><thead><tr><th scope="col">Import</th><th scope="col">Datei / Titel</th><th scope="col">Tags / Hinweise</th><th scope="col">Ergebnis</th></tr></thead><tbody id="entries"></tbody></table></div>
-<details id="preview"><summary>Markdown-Vorschau</summary><pre id="source">Eine Datei in der Liste anklicken.</pre></details>
-<div class="actions"><button id="import" disabled>Als Entwürfe importieren</button><button id="clear" class="secondary">Liste leeren</button></div>
-<p id="message" role="status" aria-live="polite">Noch kein Import gestartet.</p>
+<section class="panel"><div class="row"><h2>2. Review import</h2><span id="count">No files selected</span></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Import</th><th scope="col">File / Title</th><th scope="col">Tags / Warnings</th><th scope="col">Result</th></tr></thead><tbody id="entries"></tbody></table></div>
+<details id="preview"><summary>Markdown source preview</summary><pre id="source">Click a file in the list.</pre></details>
+<div class="actions"><button id="import" disabled>Import as drafts</button><button id="clear" class="secondary">Clear list</button></div>
+<p id="message" role="status" aria-live="polite">No import started yet.</p>
 </section>
-<footer>Markdown Importer 1.0.0 · für Publii ab 0.48.1 · arbeitet lokal, ohne Netzwerkzugriffe</footer>
+<footer>Markdown Importer 1.0.1 · for Publii 0.48.1 or later · works locally without network requests</footer>
 </main><script src="vendor/js-yaml.min.js"></script><script src="core.js"></script><script src="ui.js"></script></body></html>

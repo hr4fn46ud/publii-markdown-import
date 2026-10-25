@@ -14,7 +14,7 @@
     function scalar(value, name, fallback = '') {
         if (value == null) return fallback;
         if (!['string', 'number', 'boolean'].includes(typeof value)) {
-            throw new Error('Frontmatter „' + name + '“ muss ein einfacher Wert sein.');
+            throw new Error('Front matter field "' + name + '" must be a scalar value.');
         }
         return String(value).trim();
     }
@@ -22,33 +22,33 @@
     function list(value, name) {
         if (value == null) return [];
         const values = Array.isArray(value) ? value : scalar(value, name).split(',');
-        if (values.length > 100) throw new Error('Zu viele Werte in „' + name + '“ (maximal 100).');
+        if (values.length > 100) throw new Error('Too many values in "' + name + '" (maximum 100).');
         return values.map(v => scalar(v, name)).filter(Boolean);
     }
 
     function parse(source, filename, options = {}) {
-        if (!/\.(md|markdown|mdown)$/i.test(filename)) throw new Error('Keine Markdown-Datei.');
+        if (!/\.(md|markdown|mdown)$/i.test(filename)) throw new Error('Not a Markdown file.');
         if (typeof source !== 'string' || new TextEncoder().encode(source).length > MAX_BYTES) {
-            throw new Error('Datei ist größer als 10 MiB.');
+            throw new Error('The file exceeds 10 MiB.');
         }
         let body = source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
-        if (body.includes('\u0000')) throw new Error('Datei enthält binäre Daten.');
+        if (body.includes('\u0000')) throw new Error('The file contains binary data.');
         let metadata = Object.create(null);
         const warnings = [];
         if (/^---[ \t]*\n/.test(body)) {
             const opening = body.indexOf('\n') + 1;
             const tail = body.slice(opening);
             const closing = /^(?:---|\.\.\.)[ \t]*(?:\n|$)/m.exec(tail);
-            if (!closing) throw new Error('YAML-Frontmatter hat keine Abschlusszeile (---).');
+            if (!closing) throw new Error('YAML front matter has no closing delimiter (---).');
             const header = tail.slice(0, closing.index);
-            if (header.length > 65536) throw new Error('Frontmatter ist größer als 64 KiB.');
+            if (header.length > 65536) throw new Error('Front matter exceeds 64 KiB.');
             try {
                 metadata = yaml.load(header, { schema: yaml.JSON_SCHEMA }) || Object.create(null);
             } catch (e) {
-                throw new Error('Ungültiges YAML-Frontmatter: ' + e.message);
+                throw new Error('Invalid YAML front matter: ' + e.message);
             }
             if (typeof metadata !== 'object' || Array.isArray(metadata)) {
-                throw new Error('Frontmatter muss eine Zuordnung von Feldern und Werten sein.');
+                throw new Error('Front matter must be a mapping of fields and values.');
             }
             body = tail.slice(closing.index + closing[0].length);
         }
@@ -57,7 +57,7 @@
         const heading = /^(?:[ \t]*\n)*(?: {0,3}# [ \t]*(.+?)[ \t]*#*[ \t]*(?:\n|$)|([^\n]+)\n {0,3}=+[ \t]*(?:\n|$))/.exec(body);
         const base = filename.replace(/\\/g, '/').split('/').pop().replace(/\.(md|markdown|mdown)$/i, '');
         const title = scalar(own('title'), 'title') || (heading && (heading[1] || heading[2]).trim()) || base.replace(/[-_]+/g, ' ');
-        if (!title.trim()) throw new Error('Kein Titel erkannt.');
+        if (!title.trim()) throw new Error('No title detected.');
         if (options.stripHeading && heading && (!own('title') || title === (heading[1] || heading[2]).trim())) {
             body = body.slice(heading[0].length).replace(/^\n/, '');
         }
@@ -67,32 +67,32 @@
             const date = scalar(dateValue, 'date');
             // Require ISO dates; reject ambiguous locale-specific values.
             if (!/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/.test(date)) {
-                throw new Error('Datum bitte als ISO-Datum angeben: YYYY-MM-DD oder ISO-Zeitstempel.');
+                throw new Error('Use an ISO date: YYYY-MM-DD or an ISO timestamp.');
             }
             timestamp = Date.parse(date);
             const [year, month, day] = date.slice(0, 10).split('-').map(Number);
             const calendar = new Date(Date.UTC(year, month - 1, day));
             if (!Number.isFinite(timestamp) || calendar.getUTCFullYear() !== year ||
                 calendar.getUTCMonth() !== month - 1 || calendar.getUTCDate() !== day) {
-                throw new Error('Ungültiges Datum im Frontmatter.');
+                throw new Error('Invalid date in front matter.');
             }
         }
         const tags = [...new Set([...list(own('tags'), 'tags'), ...list(own('categories'), 'categories')])];
         const description = scalar(own('description') ?? own('excerpt'), 'description');
-        if (Object.keys(metadata).some(key => !known.has(key))) warnings.push('Unbekannte Metadaten werden nicht übernommen.');
-        if (own('author') != null) warnings.push('Autor wird über die Auswahl im Importer festgelegt.');
-        if (['status', 'draft'].some(k => own(k) != null)) warnings.push('Status aus Frontmatter wird ignoriert: Import als Entwurf.');
-        if (own('template') != null || own('layout') != null) warnings.push('Template/Layout wird durch das aktuelle Publii-Theme festgelegt.');
-        if (own('image') != null || own('featured_image') != null) warnings.push('Beitragsbild aus Frontmatter wird nicht importiert.');
+        if (Object.keys(metadata).some(key => !known.has(key))) warnings.push('Unknown metadata fields will not be imported.');
+        if (own('author') != null) warnings.push('The author is set using the selection in the importer.');
+        if (['status', 'draft'].some(k => own(k) != null)) warnings.push('Front matter status is ignored: posts are imported as drafts.');
+        if (own('template') != null || own('layout') != null) warnings.push('The template/layout is determined by the current Publii theme.');
+        if (own('image') != null || own('featured_image') != null) warnings.push('The featured image from front matter will not be imported.');
         if (/(?:!\[[^\]]*\]\(\s*<?(?!https?:|data:|\/\/|#)[^)\s]+|\]:\s*<?(?!https?:|data:|\/\/|#)[^\s]+)/i.test(body) ||
             /(?:src|href)\s*=\s*["'](?!https?:|data:|\/\/|#)[^"']+/i.test(body)) {
-            warnings.push('Lokale Bild-/Dateipfade erkannt: Dateien werden nicht kopiert. Pfade nach dem Import anpassen.');
+            warnings.push('Local image/file paths detected: files are not copied. Update paths after importing.');
         }
         return { filename, title, slug: scalar(own('slug'), 'slug'), body, tags, description, timestamp, warnings };
     }
 
     function payload(entry, site, author, themeSettings, now = Date.now()) {
-        if (!site || !Number.isInteger(Number(author)) || Number(author) <= 0) throw new Error('Website oder Autor fehlt.');
+        if (!site || !Number.isInteger(Number(author)) || Number(author) <= 0) throw new Error('The website or author is missing.');
         const view = {};
         for (const field of themeSettings?.postConfig || []) {
             if (field.name && field.type !== 'separator') {
@@ -125,7 +125,7 @@
                 const timer = setTimeout(() => {
                     finished = true;
                     this.uncertain = true;
-                    reject(new Error('Publii antwortet nicht. Import gestoppt; Beitragsliste vor erneutem Import prüfen.'));
+                    reject(new Error('Publii is not responding. Import stopped; check the post list before trying again.'));
                 }, this.timeout);
                 this.api.receiveOnce('app-post-saved', response => {
                     if (finished) return;
@@ -144,29 +144,29 @@
             });
         }
         async run(entries, author, skipExisting = true, onResult = () => {}) {
-            if (this.busy || this.uncertain) throw new Error('Import läuft oder letzter Speicherstatus ist unklar. Plugin neu öffnen.');
+            if (this.busy || this.uncertain) throw new Error('An import is running or the last save status is uncertain. Reopen the plugin.');
             const site = this.store.state.currentSite;
             const siteName = site.config.name;
-            if (!site.authors.some(a => Number(a.id) === Number(author))) throw new Error('Autor ist nicht mehr verfügbar.');
+            if (!site.authors.some(a => Number(a.id) === Number(author))) throw new Error('The selected author is no longer available.');
             this.busy = true;
             const results = [];
             try {
                 const slugs = new Set((site.posts || []).map(p => p.slug.toLowerCase()));
                 for (const entry of entries) {
-                    if (this.store.state.currentSite.config.name !== siteName) throw new Error('Website wurde gewechselt. Import gestoppt.');
+                    if (this.store.state.currentSite.config.name !== siteName) throw new Error('The website has changed. Import stopped.');
                     if (this.done.has(entry)) continue;
                     const slug = await this.api.invoke('app-main-process-create-slug', entry.slug || entry.title);
-                    if (!slug || typeof slug !== 'string') throw new Error('Publii konnte keinen URL-Namen erstellen.');
+                    if (!slug || typeof slug !== 'string') throw new Error('Publii could not create a URL slug.');
                     entry.slug = slug;
                     if (skipExisting && slugs.has(slug.toLowerCase())) {
-                        const result = { entry, status: 'skipped', message: 'URL-Name bereits vorhanden' };
+                        const result = { entry, status: 'skipped', message: 'URL slug already exists' };
                         results.push(result); onResult(result); continue;
                     }
                     const data = payload(entry, siteName, author, site.themeSettings);
                     const response = await this.request(data);
                     if (!response || !response.postID || !Array.isArray(response.posts)) {
                         this.uncertain = true;
-                        throw new Error('Speicherung nicht bestätigt. Import gestoppt; Beitragsliste prüfen.');
+                        throw new Error('The save was not confirmed. Import stopped; check the post list.');
                     }
                     this.done.add(entry);
                     slugs.add(slug.toLowerCase());

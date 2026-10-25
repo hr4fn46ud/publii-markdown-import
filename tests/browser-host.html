@@ -1,9 +1,9 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Publii bridge test fixture</title><style>body{margin:0}iframe{border:0;width:100%;height:100vh}</style></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Publii bridge test fixture</title><style>body{margin:0}iframe{border:0;width:100%;height:100vh}</style></head><body>
 <div id="app"></div><iframe title="Markdown Importer" src="../markdown-importer/options/index.html"></iframe>
 <script>
 window.testRequests = [];
 window.testXss = false;
-const currentSite = {config:{name:'Test-Website'},posts:[],authors:[{id:1,name:'Testautor'}],themeSettings:{postConfig:[]}};
+const currentSite = {config:{name:'Test Website'},posts:[],authors:[{id:1,name:'Test Author'}],themeSettings:{postConfig:[]}};
 const store = {state:{currentSite},commit(name,data){currentSite.posts=data.posts;}};
 document.getElementById('app').__vue__ = {$store:store};
 let savedListener;

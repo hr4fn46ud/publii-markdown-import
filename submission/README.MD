@@ -5,7 +5,7 @@
 | Property | Value |
 | --- | --- |
 | Name | Markdown Importer |
-| Version | 1.0.0 |
+| Version | 1.0.1 |
 | Author | Oliver Pifferi |
 | License | MIT |
 | Minimum supported Publii version | 0.48.1 |
@@ -26,8 +26,8 @@ Markdown Importer brings standard Markdown files into your website as editable d
 ## Download, documentation, and support
 
 - [Project and full documentation](https://github.com/hr4fn46ud/publii-markdown-import)
-- [Installable plugin ZIP](https://github.com/hr4fn46ud/publii-markdown-import/releases/download/v1.0.0/Markdown-Importer-1.0.0.zip)
-- [Release and checksums](https://github.com/hr4fn46ud/publii-markdown-import/releases/tag/v1.0.0)
+- [Installable plugin ZIP](https://github.com/hr4fn46ud/publii-markdown-import/releases/download/v1.0.1/Markdown-Importer-1.0.1.zip)
+- [Release and checksums](https://github.com/hr4fn46ud/publii-markdown-import/releases/tag/v1.0.1)
 - [Support and bug reports](https://github.com/hr4fn46ud/publii-markdown-import/issues)
 - [MIT license](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/LICENSE)
 
@@ -35,7 +35,7 @@ Markdown Importer brings standard Markdown files into your website as editable d
 
 [icon.svg](icon.svg) is an unchanged copy of the plugin's original thumbnail.svg. It has a 120 × 120 SVG view box and uses the same artwork displayed in Publii's plugin manager.
 
-## Original application screenshots
+## Original application screenshots (version 1.0.0)
 
 | File | Contents | Pixel dimensions | Resolution |
 | --- | --- | --- | --- |
@@ -47,13 +47,15 @@ Markdown Importer brings standard Markdown files into your website as editable d
 
 These PNG screenshots were provided by the author from the running application. They are copied without resizing, recompression, or metadata changes. All five contain a PNG pHYs chunk with 5669 pixels/metre in each axis, the standard integer representation of nominal 144 dpi (approximately 143.993 dpi).
 
-The options screenshot is the primary marketplace screenshot. The other four are supporting material, including evidence of a successful import.
+These historical screenshots show version 1.0.0 with its original German interface and document the earlier successful import. The options screenshot was prepared as the primary marketplace image for that version; the other four provide supporting evidence.
+
+Version 1.0.1 uses English throughout the interface. A [current English browser test preview](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/markdown-importer-preview.png) is available separately. It uses a simulated connection and is not presented as a screenshot from the running native application.
 
 ## Compatibility and limitations
 
-The current interface is German; the documentation is English. Local images, attachments, and featured images are not copied. Imports create draft posts and do not overwrite existing posts. The plugin uses Publii's internal save communication channel; future application changes may require compatibility updates.
+The current interface, plugin metadata, messages, documentation, examples, and source comments are English. Native file-picker controls use the operating system's language. Imported content keeps its original language. Local images, attachments, and featured images are not copied. Imports create draft posts and do not overwrite existing posts. The plugin uses Publii's internal save communication channel; future application changes may require compatibility updates.
 
-Automated core tests, browser interface tests, and native backend/package checks have passed. The supplied application screenshots document installation, file selection, a completed import of 20 draft posts with zero skipped files, and the resulting drafts in Publii's post list. This supports successful operation in the running application. The screenshots do not independently verify every imported post's contents or subsequent editor save operations.
+Automated core tests, browser interface tests, and native backend/package checks have passed for version 1.0.1. The supplied historical application screenshots document version 1.0.0's installation, file selection, a completed import of 20 draft posts with zero skipped files, and the resulting drafts in Publii's post list. This supports successful operation in the running application. The screenshots do not independently verify every imported post's contents or subsequent editor save operations.
 
 ## Submission reference
 

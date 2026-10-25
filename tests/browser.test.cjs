@@ -8,31 +8,33 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 (async () => {
     const browser = await chromium.launch({ headless: true, args: ['--allow-file-access-from-files'] });
     try {
-        const page = await browser.newPage({ viewport: { width: 1140, height: 1050 }, colorScheme: 'light' });
+        const page = await browser.newPage({ viewport: { width: 1140, height: 1050 }, colorScheme: 'light', locale: 'en-US' });
         const errors = [];
         page.on('pageerror', e => errors.push(e.message));
         await page.goto(pathToFileURL(path.join(__dirname, 'browser-host.html')).href);
         const frame = page.frameLocator('iframe');
-        await frame.locator('#connection').filter({ hasText: 'Test-Website' }).waitFor();
+        assert.equal(await frame.locator('html').getAttribute('lang'), 'en');
+        assert.equal(await frame.locator('#import').textContent(), 'Import as drafts');
+        await frame.locator('#connection').filter({ hasText: 'Test Website' }).waitFor();
         await frame.locator('#files').setInputFiles([
-            path.join(__dirname, '../examples/beispiel.md'),
-            path.join(__dirname, '../examples/ohne-metadaten.md')
+            path.join(__dirname, '../examples/example.md'),
+            path.join(__dirname, '../examples/without-front-matter.md')
         ]);
-        await frame.locator('#count').filter({ hasText: '2 Datei(en)' }).waitFor();
+        await frame.locator('#count').filter({ hasText: '2 file(s)' }).waitFor();
         await frame.locator('.entry-title').first().click();
-        assert.ok((await frame.locator('#source').textContent()).includes('**Markdown-Editor**'));
+        assert.ok((await frame.locator('#source').textContent()).includes('**Markdown editor**'));
         await frame.locator('#import').click();
-        await frame.locator('#message').filter({ hasText: '2 Entwurf/Entwürfe importiert' }).waitFor();
+        await frame.locator('#message').filter({ hasText: '2 draft(s) imported' }).waitFor();
         const requests = await page.evaluate(() => window.testRequests);
         assert.equal(requests.length, 2);
         assert.equal(requests[0].status, 'draft');
         assert.equal(requests[0].additionalData.editor, 'markdown');
         assert.ok(await frame.locator('#import').isDisabled());
         // A fresh file with the same title should be skipped without a save.
-        await frame.locator('#files').setInputFiles({ name: 'duplicate.md', mimeType: 'text/markdown', buffer: Buffer.from('# Ein einfacher Beitrag\n\nNoch einmal') });
-        await frame.locator('#count').filter({ hasText: '3 Datei(en)' }).waitFor();
+        await frame.locator('#files').setInputFiles({ name: 'duplicate.md', mimeType: 'text/markdown', buffer: Buffer.from('# A simple post\n\nOnce more') });
+        await frame.locator('#count').filter({ hasText: '3 file(s)' }).waitFor();
         await frame.locator('#import').click();
-        await frame.locator('#message').filter({ hasText: '1 übersprungen' }).waitFor();
+        await frame.locator('#message').filter({ hasText: '1 skipped' }).waitFor();
         assert.equal((await page.evaluate(() => testRequests)).length, 2);
         // Reject invalid UTF-8 and invalid YAML; show raw malicious text safely.
         await frame.locator('#files').setInputFiles([
@@ -40,7 +42,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
             { name: 'broken.md', mimeType: 'text/markdown', buffer: Buffer.from('---\ntitle: [\n---\nText') },
             { name: 'unsafe.md', mimeType: 'text/markdown', buffer: Buffer.from('# <img src=x onerror="parent.testXss=true">\n\n<script>parent.testXss=true</script>') }
         ]);
-        await frame.locator('#count').filter({ hasText: '6 Datei(en)' }).waitFor();
+        await frame.locator('#count').filter({ hasText: '6 file(s)' }).waitFor();
         await frame.locator('.entry-title').last().click();
         assert.equal(await page.evaluate(() => testXss), false);
         assert.equal(await frame.locator('#entries img').count(), 0);
@@ -49,10 +51,10 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
         fs.mkdirSync(evidence, { recursive: true });
         await frame.locator('#clear').click();
         await frame.locator('#files').setInputFiles([
-            path.join(__dirname, '../examples/beispiel.md'),
-            path.join(__dirname, '../examples/ohne-metadaten.md')
+            path.join(__dirname, '../examples/example.md'),
+            path.join(__dirname, '../examples/without-front-matter.md')
         ]);
-        await frame.locator('#count').filter({ hasText: '2 Datei(en)' }).waitFor();
+        await frame.locator('#count').filter({ hasText: '2 file(s)' }).waitFor();
         await page.setViewportSize({ width: 1140, height: 1250 });
         await frame.locator('#preview').evaluate(el => { el.open = false; window.scrollTo(0, 0); });
         await page.evaluate(() => window.scrollTo(0, 0));
