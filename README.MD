@@ -15,6 +15,23 @@ Download **[Markdown-Importer-1.0.0.zip](https://github.com/hr4fn46ud/publii-mar
 
 Use the plugin ZIP for installation. The source archive and GitHub's automatically generated source downloads are not plugin installation packages.
 
+## Screenshots
+
+The following screenshots were supplied by the author from the running Publii application. The original PNG files are preserved with their nominal 144 dpi resolution metadata.
+
+![Markdown Importer options in Publii](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/01-options.png)
+
+<details>
+<summary>File selection and installed plugin</summary>
+
+![Markdown files ready for import](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/02-file-selection.png)
+
+![Markdown Importer installed in Publii](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/03-installed-plugin.png)
+
+</details>
+
+The [submission materials](https://github.com/hr4fn46ud/publii-markdown-import/tree/main/submission) include the original screenshots, marketplace icon, and a short English description with a feature list.
+
 ## Installation
 
 1. Open Publii's application menu, then select **Plugins → Install Plugin**.
@@ -199,7 +216,7 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 - 26 automated core tests passed.
 - Browser interface tests passed.
 - Native backend and plugin package checks passed against Publii 0.48.1.
-- A complete manual installation and interaction test in the running Publii GUI has not been performed.
+- Author-supplied screenshots show version 1.0.0 installed, the options interface open in Publii, and Markdown files ready for import. They do not establish a completed import or subsequent editing of the resulting drafts; that part of the manual verification remains unconfirmed.
 - Windows and Linux have not been independently tested.
 
 See [the test report](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/TEST-REPORT.md) for the recorded scope and limits.
