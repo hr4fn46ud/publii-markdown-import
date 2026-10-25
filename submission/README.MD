@@ -2,11 +2,13 @@
 
 ## Plugin
 
-**Name:** Markdown Importer  
-**Version:** 1.0.0  
-**Author:** Oliver Pifferi  
-**License:** MIT  
-**Minimum supported Publii version:** 0.48.1
+| Property | Value |
+| --- | --- |
+| Name | Markdown Importer |
+| Version | 1.0.0 |
+| Author | Oliver Pifferi |
+| License | MIT |
+| Minimum supported Publii version | 0.48.1 |
 
 ## Short description
 
@@ -40,16 +42,18 @@ Markdown Importer brings standard Markdown files into your website as editable d
 | [01-options.png](screenshots/01-options.png) | Plugin options open inside Publii | 2506 × 1618 | Nominal 144 dpi |
 | [02-file-selection.png](screenshots/02-file-selection.png) | Selected Markdown files ready for import | 2518 × 1598 | Nominal 144 dpi |
 | [03-installed-plugin.png](screenshots/03-installed-plugin.png) | Installed plugin tile showing version 1.0.0 | 694 × 642 | Nominal 144 dpi |
+| [04-import-completed.png](screenshots/04-import-completed.png) | Completed import: 20 drafts imported, zero skipped | 2518 × 1518 | Nominal 144 dpi |
+| [05-imported-drafts.png](screenshots/05-imported-drafts.png) | Publii post list showing the resulting 20 drafts | 2508 × 1614 | Nominal 144 dpi |
 
-These PNG screenshots were provided by the author from the running application. They are copied without resizing, recompression, or metadata changes. All three contain a PNG pHYs chunk with 5669 pixels/metre in each axis, the standard integer representation of nominal 144 dpi (approximately 143.993 dpi).
+These PNG screenshots were provided by the author from the running application. They are copied without resizing, recompression, or metadata changes. All five contain a PNG pHYs chunk with 5669 pixels/metre in each axis, the standard integer representation of nominal 144 dpi (approximately 143.993 dpi).
 
-The options screenshot is the primary marketplace screenshot. The other two are supporting material.
+The options screenshot is the primary marketplace screenshot. The other four are supporting material, including evidence of a successful import.
 
 ## Compatibility and limitations
 
 The current interface is German; the documentation is English. Local images, attachments, and featured images are not copied. Imports create draft posts and do not overwrite existing posts. The plugin uses Publii's internal save communication channel; future application changes may require compatibility updates.
 
-Automated core tests, browser interface tests, and native backend/package checks have passed. The supplied application screenshots establish installation and file selection, but do not document a completed import or subsequent editing of the resulting drafts. That final manual verification remains unconfirmed.
+Automated core tests, browser interface tests, and native backend/package checks have passed. The supplied application screenshots document installation, file selection, a completed import of 20 draft posts with zero skipped files, and the resulting drafts in Publii's post list. This supports successful operation in the running application. The screenshots do not independently verify every imported post's contents or subsequent editor save operations.
 
 ## Submission reference
 

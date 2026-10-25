@@ -10,14 +10,14 @@ Verification date: October 25, 2026.
 - Interface screenshots at wide and narrow viewport sizes.
 - Deterministic plugin and source archives, required files, one top-level plugin directory, ZIP integrity, and SHA-256 checksums.
 - Installation ZIP extracted with Publii 0.48.1's actual ZIP helper and recognized by the actual plugin loader as Markdown Importer with a custom settings interface.
-- Author-supplied screenshots from the running Publii application show Markdown Importer 1.0.0 installed, the options interface open, and selected Markdown files marked ready for import. These original PNG files are preserved in submission/screenshots without modifying their bytes.
+- Author-supplied screenshots from the running Publii application show Markdown Importer 1.0.0 installed, the options interface open, selected Markdown files marked ready for import, a completed import reporting 20 drafts imported and zero skipped, and Publii's post list displaying 20 drafts and zero published posts. These original PNG files are preserved in submission/screenshots without modifying their bytes.
 - The author-supplied PNG files contain 5669 pixels/metre resolution metadata in both axes, the standard integer PNG representation of nominal 144 dpi (approximately 143.993 dpi).
 
 ## Verification limits
 
 - The browser interface test uses a simulated Vue store and communication bridge.
 - The native backend test uses the real Publii post class and SQLite library; message delivery is connected directly by the test.
-- Screenshot evidence now covers installation, opening the interface, and selecting files in the running Publii GUI. A completed import and editing of the resulting drafts are not shown and remain unconfirmed. The host application's version is not visible in the supplied screenshots.
+- Screenshot evidence covers installation, opening the interface, selecting files, and a successful batch import confirmed by both the importer and Publii's post list. It does not independently inspect every post's contents or demonstrate a subsequent editor save operation. The host application's version is not visible in the supplied screenshots.
 - No independent Windows or Linux verification.
 - Automated tests did not modify production websites. The supplied screenshots document the author's own application session.
 

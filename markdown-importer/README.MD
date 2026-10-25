@@ -22,11 +22,15 @@ The following screenshots were supplied by the author from the running Publii ap
 ![Markdown Importer options in Publii](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/01-options.png)
 
 <details>
-<summary>File selection and installed plugin</summary>
+<summary>File selection, installed plugin, and completed import</summary>
 
 ![Markdown files ready for import](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/02-file-selection.png)
 
 ![Markdown Importer installed in Publii](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/03-installed-plugin.png)
+
+![Successful import of 20 draft posts with no skipped files](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/04-import-completed.png)
+
+![Publii post list showing 20 drafts after import](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/submission/screenshots/05-imported-drafts.png)
 
 </details>
 
@@ -216,7 +220,7 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 - 26 automated core tests passed.
 - Browser interface tests passed.
 - Native backend and plugin package checks passed against Publii 0.48.1.
-- Author-supplied screenshots show version 1.0.0 installed, the options interface open in Publii, and Markdown files ready for import. They do not establish a completed import or subsequent editing of the resulting drafts; that part of the manual verification remains unconfirmed.
+- Author-supplied screenshots show version 1.0.0 installed and running in Publii, a completed import of 20 drafts with zero skipped files, and the resulting 20 drafts in Publii's post list. This provides application-level evidence for the manual import workflow; the images do not inspect every post's content or subsequent editor save operations.
 - Windows and Linux have not been independently tested.
 
 See [the test report](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/TEST-REPORT.md) for the recorded scope and limits.
