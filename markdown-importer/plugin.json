@@ -1,0 +1,12 @@
+{
+  "name": "Markdown Importer",
+  "description": "Importiert Markdown-Dateien mit optionalem YAML-Frontmatter als bearbeitbare Entwürfe.",
+  "author": "Oliver Pifferi",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scope": "site",
+  "minimumPubliiVersion": "0.48.1",
+  "usePluginSettingsView": true,
+  "previewNotRequired": true,
+  "config": []
+}

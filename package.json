@@ -1,0 +1,17 @@
+{
+  "name": "publii-markdown-import",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Import Markdown files into Publii as editable draft posts.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/netherwraith/publii-markdown-import.git"
+  },
+  "homepage": "https://github.com/netherwraith/publii-markdown-import",
+  "bugs": "https://github.com/netherwraith/publii-markdown-import/issues",
+  "scripts": {
+    "test": "node --test tests/core.test.cjs",
+    "build": "python3 build.py"
+  }
+}

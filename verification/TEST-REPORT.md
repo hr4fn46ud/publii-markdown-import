@@ -1,0 +1,28 @@
+# Verification: Markdown Importer 1.0.0
+
+Verification date: October 25, 2026.
+
+## Passed
+
+- 26 automated tests covering the parser, metadata handling, and import session.
+- Actual Publii 0.48.1 post class from the installed application, using its own Node runtime and native SQLite library: saved and loaded posts in a temporary website; checked Markdown editor assignment, preserved source, Unicode, dates, tags, description, duplicate skipping, and Publii's slug suffix when skipping is disabled.
+- Chromium interface test with a simulated Publii connection: bridge detection, multiple-file selection, source preview, draft import, results, duplicates, invalid UTF-8, malformed YAML, safe display of HTML/script text, and disabled importing outside Publii.
+- Interface screenshots at wide and narrow viewport sizes.
+- Deterministic plugin and source archives, required files, one top-level plugin directory, ZIP integrity, and SHA-256 checksums.
+- Installation ZIP extracted with Publii 0.48.1's actual ZIP helper and recognized by the actual plugin loader as Markdown Importer with a custom settings interface.
+
+## Verification limits
+
+- The browser interface test uses a simulated Vue store and communication bridge.
+- The native backend test uses the real Publii post class and SQLite library; message delivery is connected directly by the test.
+- No complete manual installation and interaction test in the running Publii GUI.
+- No independent Windows or Linux verification.
+- No production websites modified.
+
+## Reference
+
+Installed version: Publii 0.48.1.
+
+Public source additionally reviewed: GetPublii/Publii, commit 2f2475c4df98941b1c3646698562cd112abe1019.
+
+Bundled YAML parser: js-yaml 4.1.1 (MIT).

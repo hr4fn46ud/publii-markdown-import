@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+      - name: Run core tests
+        run: npm test
+      - name: Build and validate packages
+        run: python3 build.py
+      - name: Upload packages and checksums
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: markdown-importer-packages
+          path: dist/*
+          if-no-files-found: error
