@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/markdown-importer/thumbnail.svg" alt="Markdown Importer logo" width="120" height="120">
+
 # Markdown Importer
 
 [![CI](https://github.com/hr4fn46ud/publii-markdown-import/actions/workflows/ci.yml/badge.svg)](https://github.com/hr4fn46ud/publii-markdown-import/actions/workflows/ci.yml)
