@@ -5,7 +5,7 @@
 | Property | Value |
 | --- | --- |
 | Name | Markdown Importer |
-| Version | 1.0.1 |
+| Version | 1.1.0 |
 | Author | Oliver Pifferi |
 | License | MIT |
 | Minimum supported Publii version | 0.48.1 |
@@ -15,6 +15,8 @@
 Markdown Importer brings standard Markdown files into your website as editable draft posts. Select multiple files, review the detected titles and optional YAML metadata, choose an author, and import the content directly into the Markdown editor.
 
 ## Features
+
+- Follow Publii's interface language automatically; English and German translations are bundled with English fallback.
 
 - Import multiple .md, .markdown, and .mdown files through file selection or drag-and-drop.
 - Read optional YAML metadata for titles, URL slugs, dates, descriptions, and tags.
@@ -26,8 +28,8 @@ Markdown Importer brings standard Markdown files into your website as editable d
 ## Download, documentation, and support
 
 - [Project and full documentation](https://github.com/hr4fn46ud/publii-markdown-import)
-- [Installable plugin ZIP](https://github.com/hr4fn46ud/publii-markdown-import/releases/download/v1.0.1/Markdown-Importer-1.0.1.zip)
-- [Release and checksums](https://github.com/hr4fn46ud/publii-markdown-import/releases/tag/v1.0.1)
+- [Installable plugin ZIP](https://github.com/hr4fn46ud/publii-markdown-import/releases/download/v1.1.0/Markdown-Importer-1.1.0.zip)
+- [Release and checksums](https://github.com/hr4fn46ud/publii-markdown-import/releases/tag/v1.1.0)
 - [Support and bug reports](https://github.com/hr4fn46ud/publii-markdown-import/issues)
 - [MIT license](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/LICENSE)
 
@@ -49,13 +51,13 @@ These PNG screenshots were provided by the author from the running application. 
 
 These historical screenshots show version 1.0.0 with its original German interface and document the earlier successful import. The options screenshot was prepared as the primary marketplace image for that version; the other four provide supporting evidence.
 
-Version 1.0.1 uses English throughout the interface. A [current English browser test preview](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/markdown-importer-preview.png) is available separately. It uses a simulated connection and is not presented as a screenshot from the running native application.
+Version 1.1.0 automatically follows Publii's application language, with English and German included and English as the fallback. A [current English browser test preview](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/markdown-importer-preview.png) is available separately. It uses a simulated connection and is not presented as a screenshot from the running native application.
 
 ## Compatibility and limitations
 
-The current interface, plugin metadata, messages, documentation, examples, and source comments are English. Native file-picker controls use the operating system's language. Imported content keeps its original language. Local images, attachments, and featured images are not copied. Imports create draft posts and do not overwrite existing posts. The plugin uses Publii's internal save communication channel; future application changes may require compatibility updates.
+The current interface follows Publii's application language, including messages, errors, warnings, and dates. English and German are bundled, with per-language JSON catalogs and English fallback. [Independent translations](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/TRANSLATING.MD) can be added without editing plugin logic. Documentation, source comments, and static plugin metadata remain English. Native file-picker controls use the operating system's language. Imported content keeps its original language. Local images, attachments, and featured images are not copied. Imports create draft posts and do not overwrite existing posts. The plugin uses Publii's internal save communication channel; future application changes may require compatibility updates.
 
-Automated core tests, browser interface tests, and native backend/package checks have passed for version 1.0.1. The supplied historical application screenshots document version 1.0.0's installation, file selection, a completed import of 20 draft posts with zero skipped files, and the resulting drafts in Publii's post list. This supports successful operation in the running application. The screenshots do not independently verify every imported post's contents or subsequent editor save operations.
+Automated core tests, browser interface tests, and native backend/package checks have passed for version 1.1.0. The supplied historical application screenshots document version 1.0.0's installation, file selection, a completed import of 20 draft posts with zero skipped files, and the resulting drafts in Publii's post list. This supports successful operation in the running application. The screenshots do not independently verify every imported post's contents or subsequent editor save operations.
 
 ## Submission reference
 

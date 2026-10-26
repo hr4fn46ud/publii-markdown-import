@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 — 2026-10-26
+
+- Follow Publii's active interface language automatically and react to live language changes.
+- Include independent English and German JSON catalogs with regional-language and per-message English fallback.
+- Localize labels, errors, warnings, import results, accessibility labels, and date formatting while preserving imported content.
+- Discover and validate additional translation files during the build; bundle all translations locally without runtime downloads.
+- Add a translation guide, locale tests, compiler-validation tests, and English/German browser coverage.
+
 ## 1.0.1 — 2026-10-25
 
 - Use English throughout the plugin interface, metadata, validation errors, warnings, and status messages.

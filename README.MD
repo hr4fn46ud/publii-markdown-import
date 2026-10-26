@@ -11,15 +11,22 @@ The plugin is called **Markdown Importer**. This repository is named **publii-ma
 
 ## Download
 
-Download **[Markdown-Importer-1.0.1.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.0.1.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
+Download **[Markdown-Importer-1.1.0.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.1.0.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
 
 Use the plugin ZIP for installation. The source archive and GitHub's automatically generated source downloads are not plugin installation packages.
 
 ## Screenshots
 
-The current English interface in version 1.0.1 is shown below. This preview is captured by the browser test using a simulated Publii connection.
+The English interface in version 1.1.0 is shown below. The plugin automatically follows Publii's interface language. These current previews are captured by the browser test using a simulated Publii connection.
 
 ![English Markdown Importer interface](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/verification/markdown-importer-preview.png)
+
+<details>
+<summary>Current German interface preview</summary>
+
+![German Markdown Importer interface](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/verification/markdown-importer-de.png)
+
+</details>
 
 <details>
 <summary>Original application screenshots: version 1.0.0 (historical German interface)</summary>
@@ -43,7 +50,7 @@ The [submission materials](https://github.com/hr4fn46ud/publii-markdown-import/t
 ## Installation
 
 1. Open Publii's application menu, then select **Plugins → Install Plugin**.
-2. Select **Markdown-Importer-1.0.1.zip** without extracting it.
+2. Select **Markdown-Importer-1.1.0.zip** without extracting it.
 3. Open the target website.
 4. Find **Markdown Importer** under **Tools & Plugins**, enable it, and open its settings.
 5. Select one or more Markdown files, or drag them into the file selection area.
@@ -53,11 +60,21 @@ The [submission materials](https://github.com/hr4fn46ud/publii-markdown-import/t
 9. Start the draft import and keep the plugin view open until it finishes.
 10. Open the imported posts from Publii's post list, review them, and publish when ready.
 
-**Interface language:** English, including labels, status messages, warnings, validation errors, metadata, and source comments. Native file-picker controls follow the operating system's language. Imported content is preserved in its original language.
+**Interface language:** follows Publii's application language automatically. English and German are included, with English as the fallback for unsupported languages and missing translations. Regional variants such as de-DE and de-AT are recognized. Native file-picker controls follow the operating system's language; imported content stays unchanged.
 
 No additional runtime installation is required. Node.js and Python are only needed for development and packaging.
 
+## Language support
+
+The plugin reads Publii's active application language from its Vue I18n locale. Labels, messages, validation errors, warnings, results, and date formatting follow that locale, including changes while the plugin view is open. The website's content language does not control the interface.
+
+Translations are maintained independently in [options/locales](https://github.com/hr4fn46ud/publii-markdown-import/tree/main/markdown-importer/options/locales), one JSON file per language. Additional languages can be added without editing plugin logic; missing messages use English. All catalogs are bundled locally.
+
+See [TRANSLATING.MD](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/TRANSLATING.MD) for the file format, placeholders, validation, and packaging steps. The manifest description and source comments remain English.
+
 ## Features
+
+- Automatic matching of Publii's interface language, with English and German catalogs and English fallback.
 
 - Multiple-file selection and drag-and-drop for .md, .markdown, and .mdown files.
 - UTF-8 with or without a byte-order mark; Windows and Unix line endings.
@@ -173,7 +190,14 @@ All plugin runtime files are bundled, including **js-yaml 4.1.1**. No package in
 npm test
 ~~~
 
-The suite covers Markdown preservation, front matter, Unicode, dates, malformed input, duplicate handling, draft payloads, concurrent imports, and uncertain save outcomes.
+The JavaScript suite covers Markdown preservation, front matter, Unicode, dates, malformed input, duplicate handling, draft payloads, concurrent imports, uncertain save outcomes, locale detection, regional variants, per-key fallback, and language switching.
+
+Translation build validation is tested separately:
+
+~~~sh
+python3 -m unittest discover -s tests -p 'test_*.py'
+python3 build.py --check-locales
+~~~
 
 ### Build packages
 
@@ -185,8 +209,8 @@ The build creates:
 
 ~~~text
 dist/
-  Markdown-Importer-1.0.1.zip
-  Markdown-Importer-1.0.1-Source.zip
+  Markdown-Importer-1.1.0.zip
+  Markdown-Importer-1.1.0-Source.zip
   SHA256SUMS.txt
 ~~~
 
@@ -204,7 +228,7 @@ node tests/browser.test.cjs
 
 PLAYWRIGHT_MODULE may point to an existing Playwright installation. PLAYWRIGHT_BROWSERS_PATH may specify a browser cache directory.
 
-The browser test uses a simulated Publii store and communication bridge. It checks file selection, source preview, draft imports, duplicate handling, invalid UTF-8 and YAML, safe display of HTML/script text, and the guard against use outside Publii.
+The browser test uses a simulated Publii store and communication bridge. It checks English/German detection, live language switching, regional variants, English fallback, translated errors, preserved source content, file selection, draft imports, duplicate handling, invalid UTF-8/YAML, safe display of HTML/script text, and the guard against use outside Publii.
 
 ### Optional native Publii integration test
 
@@ -221,15 +245,15 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 
 ### Verification status
 
-- 26 automated core tests passed.
-- Browser interface tests passed for version 1.0.1, including the English interface and generated preview.
-- Native backend and plugin package checks for version 1.0.1 passed against Publii 0.48.1.
+- 37 JavaScript tests and 7 translation build-validation tests passed.
+- Browser interface tests passed for version 1.1.0, including English/German selection, live switching, fallback, and generated previews.
+- Native backend and plugin package checks for version 1.1.0 passed against Publii 0.48.1.
 - Author-supplied screenshots show version 1.0.0 installed and running in Publii, a completed import of 20 drafts with zero skipped files, and the resulting 20 drafts in Publii's post list. This provides application-level evidence for the manual import workflow; the images do not inspect every post's content or subsequent editor save operations.
 - Windows and Linux have not been independently tested.
 
 See [the test report](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/TEST-REPORT.md) for the recorded scope and limits.
 
-GitHub Actions runs core tests, builds the packages, and uploads the resulting artifacts on pushes and pull requests.
+GitHub Actions runs JavaScript and translation-validation tests, checks the generated locale bundle, builds the packages, and uploads the resulting artifacts on pushes and pull requests.
 
 ## License
 

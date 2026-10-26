@@ -1,6 +1,6 @@
 {
   "name": "publii-markdown-import",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "license": "MIT",
   "description": "Import Markdown files into Publii as editable draft posts.",
@@ -11,7 +11,7 @@
   "homepage": "https://github.com/hr4fn46ud/publii-markdown-import",
   "bugs": "https://github.com/hr4fn46ud/publii-markdown-import/issues",
   "scripts": {
-    "test": "node --test tests/core.test.cjs",
+    "test": "node --test tests/core.test.cjs tests/i18n.test.cjs",
     "build": "python3 build.py"
   }
 }

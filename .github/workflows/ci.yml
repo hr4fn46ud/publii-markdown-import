@@ -18,6 +18,10 @@ jobs:
           node-version: '24'
       - name: Run core tests
         run: npm test
+      - name: Check translation catalogs and generated bundle
+        run: |
+          python3 build.py --check-locales
+          python3 -m unittest discover -s tests -p 'test_*.py'
       - name: Build and validate packages
         run: python3 build.py
       - name: Upload packages and checksums

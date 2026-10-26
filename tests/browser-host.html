@@ -5,7 +5,22 @@ window.testRequests = [];
 window.testXss = false;
 const currentSite = {config:{name:'Test Website'},posts:[],authors:[{id:1,name:'Test Author'}],themeSettings:{postConfig:[]}};
 const store = {state:{currentSite},commit(name,data){currentSite.posts=data.posts;}};
-document.getElementById('app').__vue__ = {$store:store};
+const localeWatchers = new Set();
+let locale = new URLSearchParams(location.search).get('locale') || 'en-US';
+const hostI18n = {};
+Object.defineProperty(hostI18n, 'locale', {
+  get(){return locale;},
+  set(value){locale=value;localeWatchers.forEach(fn=>fn(value));}
+});
+document.getElementById('app').__vue__ = {
+  $store:store,
+  $i18n:hostI18n,
+  $watch(expression,callback){
+    if(expression!=='$i18n.locale')throw new Error('Unexpected watcher expression');
+    localeWatchers.add(callback);return ()=>localeWatchers.delete(callback);
+  }
+};
+window.setTestLocale=value=>{hostI18n.locale=value;};
 let savedListener;
 window.mainProcessAPI = {
   invoke: async (channel,text)=>text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
