@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.2.0 — 2026-11-21
 
 - Search dropped folders recursively and import the Markdown files inside them; non-Markdown files inside folders are ignored.
 - Fail the build when the version in plugin.json, ui.js, and index.html drift apart; add a --check-versions flag and build tests for it.
