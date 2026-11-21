@@ -18,10 +18,17 @@ jobs:
           node-version: '24'
       - name: Run core tests
         run: npm test
-      - name: Check translation catalogs and generated bundle
+      - name: Check translation catalogs, version stamps, and build tests
         run: |
           python3 build.py --check-locales
+          python3 build.py --check-versions
           python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Install Playwright with headless Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install chromium --only-shell
+      - name: Run browser interface tests
+        run: npm run test:browser
       - name: Build and validate packages
         run: python3 build.py
       - name: Upload packages and checksums

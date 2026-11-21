@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Search dropped folders recursively and import the Markdown files inside them; non-Markdown files inside folders are ignored.
+- Fail the build when the version in plugin.json, ui.js, and index.html drift apart; add a --check-versions flag and build tests for it.
+- Run the Playwright browser interface tests in GitHub Actions and add an npm run test:browser script.
+- Declare the required Node.js version in package.json and cover the version checks in CI.
+
 ## 1.1.0 — 2026-10-26
 
 - Follow Publii's active interface language automatically and react to live language changes.

@@ -76,6 +76,29 @@ def compile_locales(check_only=False):
     return catalog
 
 
+def check_versions(root=None):
+    """Ensure plugin.json, ui.js and index.html all carry the same version stamp."""
+    root = root or ROOT
+    manifest = root / "markdown-importer" / "plugin.json"
+    version = json.loads(manifest.read_text(encoding="utf-8"))["version"]
+    ui = (root / "markdown-importer" / "options" / "ui.js").read_text(encoding="utf-8")
+    ui_match = re.search(r"const VERSION = ['\"]([^'\"]+)['\"]", ui)
+    if not ui_match:
+        raise ValueError("markdown-importer/options/ui.js: VERSION constant not found")
+    if ui_match.group(1) != version:
+        raise ValueError(f"markdown-importer/options/ui.js VERSION {ui_match.group(1)!r} "
+                         f"does not match plugin.json version {version!r}")
+    html = (root / "markdown-importer" / "options" / "index.html").read_text(encoding="utf-8")
+    html_match = re.search(r"Markdown Importer (\S+?) ·", html)
+    if not html_match:
+        raise ValueError("markdown-importer/options/index.html: footer version stamp not found")
+    if html_match.group(1) != version:
+        raise ValueError(f"markdown-importer/options/index.html footer version {html_match.group(1)!r} "
+                         f"does not match plugin.json version {version!r}")
+    print(f"Version consistency OK: {version}")
+    return version
+
+
 def pack(target, entries):
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for source, name in sorted(entries, key=lambda pair: pair[1]):
@@ -88,6 +111,7 @@ def pack(target, entries):
         assert not any(".." in Path(n).parts or n.startswith("/") for n in archive.namelist())
 
 def main():
+    check_versions()
     compile_locales()
     DIST.mkdir(exist_ok=True)
     for name in ("README.MD", "LICENSE"):
@@ -117,9 +141,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--locales-only", action="store_true", help="Validate and regenerate bundled translations only")
     parser.add_argument("--check-locales", action="store_true", help="Validate translations and check for a stale bundle")
+    parser.add_argument("--check-versions", action="store_true", help="Validate that all version stamps match plugin.json")
     args = parser.parse_args()
     if args.check_locales:
         compile_locales(check_only=True)
+    elif args.check_versions:
+        check_versions()
     elif args.locales_only:
         compile_locales()
     else:

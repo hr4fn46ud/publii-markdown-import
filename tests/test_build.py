@@ -62,5 +62,41 @@ class LocaleValidationTests(unittest.TestCase):
             build.load_locales(self.root)
 
 
+class VersionConsistencyTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name)
+        plugin = self.root / "markdown-importer"
+        (plugin / "options").mkdir(parents=True)
+        (plugin / "plugin.json").write_text('{"version": "9.9.9"}', encoding="utf-8")
+        (plugin / "options" / "ui.js").write_text("const VERSION = '9.9.9';\n", encoding="utf-8")
+        (plugin / "options" / "index.html").write_text(
+            "<footer>Markdown Importer 9.9.9 · for Publii</footer>", encoding="utf-8")
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def stamp(self, filename, text):
+        (self.root / "markdown-importer" / "options" / filename).write_text(text, encoding="utf-8")
+
+    def test_consistent_versions_pass(self):
+        self.assertEqual(build.check_versions(self.root), "9.9.9")
+
+    def test_ui_version_drift_is_rejected(self):
+        self.stamp("ui.js", "const VERSION = '1.2.3';\n")
+        with self.assertRaisesRegex(ValueError, "ui.js VERSION"):
+            build.check_versions(self.root)
+
+    def test_footer_version_drift_is_rejected(self):
+        self.stamp("index.html", "<footer>Markdown Importer 1.2.3 · for Publii</footer>")
+        with self.assertRaisesRegex(ValueError, "index.html footer version"):
+            build.check_versions(self.root)
+
+    def test_missing_version_stamp_is_rejected(self):
+        self.stamp("ui.js", "// no version constant\n")
+        with self.assertRaisesRegex(ValueError, "VERSION constant not found"):
+            build.check_versions(self.root)
+
+
 if __name__ == "__main__":
     unittest.main()
