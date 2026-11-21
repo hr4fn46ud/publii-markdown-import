@@ -97,6 +97,38 @@
         renderMessage();
         updateButtons();
     }
+    // Read dropped directories recursively through the entries API; fall back to plain files.
+    async function collectDroppedFiles(dataTransfer) {
+        const items = Array.from(dataTransfer.items || []);
+        const entries = items
+            .map(item => (typeof item.webkitGetAsEntry === 'function' ? item.webkitGetAsEntry() : null))
+            .filter(entry => entry != null);
+        if (!entries.length) return Array.from(dataTransfer.files);
+        const files = [];
+        const readEntry = entry => new Promise((resolve, reject) => entry.file(resolve, reject));
+        const readBatch = reader => new Promise((resolve, reject) => reader.readEntries(resolve, reject));
+        const walk = async (entry, depth, insideDirectory) => {
+            if (files.length >= core.MAX_FILES || depth > 16) return;
+            if (entry.isFile) {
+                try {
+                    const file = await readEntry(entry);
+                    // Inside directories, keep only Markdown files so unrelated content is ignored.
+                    if (!insideDirectory || /\.(md|markdown|mdown)$/i.test(file.name)) files.push(file);
+                } catch (_) { /* Skip unreadable entries. */ }
+            } else if (entry.isDirectory) {
+                const reader = entry.createReader();
+                for (;;) {
+                    const batch = await readBatch(reader);
+                    if (!batch.length) break;
+                    for (const child of batch) await walk(child, depth + 1, true);
+                    if (files.length >= core.MAX_FILES) break;
+                }
+            }
+        };
+        // Entries must be captured synchronously before the first await.
+        for (const entry of entries) await walk(entry, 0, false);
+        return files;
+    }
     async function addFiles(files) {
         if (busy) return;
         busy = true; updateButtons();
@@ -125,9 +157,9 @@
     for (const type of ['dragenter', 'dragover']) $('drop').addEventListener(type, e => {
         e.preventDefault(); if (!busy) $('drop').classList.add('over');
     });
-    for (const type of ['dragleave', 'drop']) $('drop').addEventListener(type, e => {
+    for (const type of ['dragleave', 'drop']) $('drop').addEventListener(type, async e => {
         e.preventDefault(); $('drop').classList.remove('over');
-        if (type === 'drop' && !busy) addFiles(e.dataTransfer.files);
+        if (type === 'drop' && !busy) addFiles(await collectDroppedFiles(e.dataTransfer));
     });
     // Prevent Electron from navigating to a dropped document outside the drop area.
     window.addEventListener('dragover', e => e.preventDefault());
