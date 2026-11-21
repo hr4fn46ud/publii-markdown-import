@@ -4,7 +4,7 @@
     const core = MarkdownImporterCore;
     const i18n = MarkdownImporterI18n;
     const { LocalizedError } = i18n;
-    const VERSION = '1.1.0';
+    const VERSION = '1.2.0';
     const $ = id => document.getElementById(id);
     let vm;
     try { vm = window.parent.document.querySelector('#app')?.__vue__; } catch (_) { /* Use English without host access. */ }

@@ -11,13 +11,13 @@ The plugin is called **Markdown Importer**. This repository is named **publii-ma
 
 ## Download
 
-Download **[Markdown-Importer-1.1.0.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.1.0.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
+Download **[Markdown-Importer-1.2.0.zip](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest/download/Markdown-Importer-1.2.0.zip)** from the [latest release](https://github.com/hr4fn46ud/publii-markdown-import/releases/latest).
 
 Use the plugin ZIP for installation. The source archive and GitHub's automatically generated source downloads are not plugin installation packages.
 
 ## Screenshots
 
-The English interface in version 1.1.0 is shown below. The plugin automatically follows Publii's interface language. These current previews are captured by the browser test using a simulated Publii connection.
+The English interface is shown below. The plugin automatically follows Publii's interface language. These current previews were captured by the browser test of version 1.1.0 using a simulated Publii connection; apart from the footer version, the interface is identical to 1.2.0.
 
 ![English Markdown Importer interface](https://raw.githubusercontent.com/hr4fn46ud/publii-markdown-import/main/verification/markdown-importer-preview.png)
 
@@ -50,7 +50,7 @@ The [submission materials](https://github.com/hr4fn46ud/publii-markdown-import/t
 ## Installation
 
 1. Open Publii's application menu, then select **Plugins → Install Plugin**.
-2. Select **Markdown-Importer-1.1.0.zip** without extracting it.
+2. Select **Markdown-Importer-1.2.0.zip** without extracting it.
 3. Open the target website.
 4. Find **Markdown Importer** under **Tools & Plugins**, enable it, and open its settings.
 5. Select one or more Markdown files, or drag them into the file selection area.
@@ -209,8 +209,8 @@ The build creates:
 
 ~~~text
 dist/
-  Markdown-Importer-1.1.0.zip
-  Markdown-Importer-1.1.0-Source.zip
+  Markdown-Importer-1.2.0.zip
+  Markdown-Importer-1.2.0-Source.zip
   SHA256SUMS.txt
 ~~~
 
@@ -245,9 +245,9 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 
 ### Verification status
 
-- 37 JavaScript tests and 7 translation build-validation tests passed.
-- Browser interface tests passed for version 1.1.0, including English/German selection, live switching, fallback, and generated previews.
-- Native backend and plugin package checks for version 1.1.0 passed against Publii 0.48.1.
+- 37 JavaScript tests and 11 build-validation tests passed for version 1.2.0.
+- Browser interface tests passed for versions 1.1.0 and 1.2.0, including English/German selection, live switching, and fallback; version 1.2.0 runs them in GitHub Actions on every push.
+- Native backend and plugin package checks passed for version 1.1.0 against Publii 0.48.1; the unchanged import path carries over to 1.2.0.
 - Author-supplied screenshots show version 1.0.0 installed and running in Publii, a completed import of 20 drafts with zero skipped files, and the resulting 20 drafts in Publii's post list. This provides application-level evidence for the manual import workflow; the images do not inspect every post's content or subsequent editor save operations.
 - Windows and Linux have not been independently tested.
 
