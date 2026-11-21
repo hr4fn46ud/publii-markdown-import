@@ -76,7 +76,7 @@ See [TRANSLATING.MD](https://github.com/hr4fn46ud/publii-markdown-import/blob/ma
 
 - Automatic matching of Publii's interface language, with English and German catalogs and English fallback.
 
-- Multiple-file selection and drag-and-drop for .md, .markdown, and .mdown files.
+- Multiple-file selection and drag-and-drop for .md, .markdown, and .mdown files. Dropped folders are searched recursively for Markdown files.
 - UTF-8 with or without a byte-order mark; Windows and Unix line endings.
 - Optional YAML front matter.
 - Markdown source retained in Publii's Markdown editor.
@@ -150,7 +150,7 @@ The repository includes [sample files](https://github.com/hr4fn46ud/publii-markd
 - External image URLs remain unchanged.
 - Links to other imported .md files are not rewritten to Publii URLs.
 - Posts are supported; hierarchical pages are not.
-- No recursive folder import or ZIP import.
+- No ZIP import. Files inside dropped folders are imported recursively; non-Markdown files inside folders are ignored.
 - Front-matter author values are replaced by the author selected in the importer.
 - Front-matter status and draft values do not control publication. Every imported post is a draft.
 - Template, layout, custom fields, and featured-image metadata are not imported.
@@ -223,10 +223,10 @@ Install Playwright and its Chromium headless browser:
 ~~~sh
 npm install --no-save --package-lock=false playwright
 npx playwright install chromium --only-shell
-node tests/browser.test.cjs
+npm run test:browser
 ~~~
 
-PLAYWRIGHT_MODULE may point to an existing Playwright installation. PLAYWRIGHT_BROWSERS_PATH may specify a browser cache directory.
+PLAYWRIGHT_MODULE may point to an existing Playwright installation. PLAYWRIGHT_BROWSERS_PATH may specify a browser cache directory. GitHub Actions runs these browser tests on every push and pull request.
 
 The browser test uses a simulated Publii store and communication bridge. It checks English/German detection, live language switching, regional variants, English fallback, translated errors, preserved source content, file selection, draft imports, duplicate handling, invalid UTF-8/YAML, safe display of HTML/script text, and the guard against use outside Publii.
 
@@ -253,7 +253,7 @@ The test uses Publii's actual ZIP extractor, plugin loader, post class, and nati
 
 See [the test report](https://github.com/hr4fn46ud/publii-markdown-import/blob/main/verification/TEST-REPORT.md) for the recorded scope and limits.
 
-GitHub Actions runs JavaScript and translation-validation tests, checks the generated locale bundle, builds the packages, and uploads the resulting artifacts on pushes and pull requests.
+GitHub Actions runs JavaScript and build-validation tests, checks the version stamps and the generated locale bundle, runs the Playwright browser interface tests, builds the packages, and uploads the resulting artifacts on pushes and pull requests.
 
 ## License
 
